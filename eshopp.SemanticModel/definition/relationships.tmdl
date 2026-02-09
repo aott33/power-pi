@@ -1,0 +1,5 @@
+relationship 41a8628d-49bc-44d0-8bc2-6e6b74f3ff43
+	joinOnDateBehavior: datePartOnly
+	fromColumn: customers.customer_signup_date
+	toColumn: LocalDateTable_2d40929a-5adc-4542-9162-610bf5f21853.Date
+

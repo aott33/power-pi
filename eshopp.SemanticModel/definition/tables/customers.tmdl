@@ -1,0 +1,73 @@
+table customers
+	lineageTag: 1f7bf9de-236f-41be-b938-50f3106d0880
+
+	column customer_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 157f9848-fac3-453f-b908-a85f26241320
+		summarizeBy: count
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = User
+
+	column customer_name
+		dataType: string
+		lineageTag: 24e8e70b-de7b-45a2-93d8-baf38de0f297
+		summarizeBy: none
+		sourceColumn: customer_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_payment_type
+		dataType: string
+		lineageTag: 6b620091-911c-41b1-9b12-53b128416c39
+		summarizeBy: none
+		sourceColumn: customer_payment_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_age
+		dataType: int64
+		formatString: 0
+		lineageTag: 03ba8de1-4f3c-4dde-aa32-524f14636791
+		summarizeBy: sum
+		sourceColumn: customer_age
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_region
+		dataType: string
+		lineageTag: 65531ddd-4767-4fed-a850-ea174acb6ea4
+		summarizeBy: none
+		sourceColumn: customer_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_signup_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 313930a9-4d1b-4d37-8f3c-b0665cf25e18
+		summarizeBy: none
+		sourceColumn: customer_signup_date
+
+		variation Variation
+			isDefault
+			relationship: 41a8628d-49bc-44d0-8bc2-6e6b74f3ff43
+			defaultHierarchy: LocalDateTable_2d40929a-5adc-4542-9162-610bf5f21853.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition customers = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\AndrewOtt\Desktop\Dev\power-bi\customers.csv"),[Delimiter=",", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"customer_id", Int64.Type}, {"customer_name", type text}, {"customer_payment_type", type text}, {"customer_age", Int64.Type}, {"customer_region", type text}, {"customer_signup_date", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

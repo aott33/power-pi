@@ -8,13 +8,21 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["customers"]
+annotation PBI_QueryOrder = ["customers","website_sessions","sales","dates","products","stores"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
 ref table customers
 ref table DateTableTemplate_b5dfb78b-6284-411b-a48c-f31f2adbb040
 ref table LocalDateTable_2d40929a-5adc-4542-9162-610bf5f21853
+ref table website_sessions
+ref table LocalDateTable_05b0c769-81ae-4547-a614-cc28a2507577
+ref table sales
+ref table dates
+ref table LocalDateTable_47dbbd6a-50b4-4c54-a2a2-acb693780986
+ref table products
+ref table stores
+ref table LocalDateTable_f96cbe96-e72e-4472-90c0-3d743f3e47b3
 
 ref cultureInfo en-CA
 

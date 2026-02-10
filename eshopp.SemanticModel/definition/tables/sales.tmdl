@@ -1,0 +1,82 @@
+table sales
+	lineageTag: 9391cb83-1a74-478c-9753-f29c38c3e1cd
+
+	column sale_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 55a06b01-2afb-4e69-9146-52fb7c3bec9d
+		summarizeBy: sum
+		sourceColumn: sale_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 1dede1b6-d47d-4a67-b7dc-837a1457b0a2
+		summarizeBy: none
+		sourceColumn: date_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 8dd746be-577c-450d-8152-762dd175a496
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_id
+		dataType: int64
+		formatString: 0
+		lineageTag: faf86333-1e55-468b-bf0b-58935cf4e7a4
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: e9309b83-9cc2-4d64-872b-3e5e1f086f51
+		summarizeBy: none
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column sale_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: d008a80a-3e8f-471a-900b-0560d894beb1
+		summarizeBy: sum
+		sourceColumn: sale_quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column sale_discount
+		dataType: double
+		lineageTag: 99d3078f-b488-43db-805b-d0bfb2a19d9f
+		summarizeBy: sum
+		sourceColumn: sale_discount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition sales = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\AndrewOtt\Desktop\Dev\power-bi\sales.csv"),[Delimiter=",", Columns=7, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"sale_id", Int64.Type}, {"date_id", Int64.Type}, {"customer_id", Int64.Type}, {"product_id", Int64.Type}, {"store_id", Int64.Type}, {"sale_quantity", Int64.Type}, {"sale_discount", type number}}),
+				    #"Removed Duplicates" = Table.Distinct(#"Changed Type", {"sale_id"})
+				in
+				    #"Removed Duplicates"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

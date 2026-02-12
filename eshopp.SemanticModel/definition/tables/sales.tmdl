@@ -1,6 +1,20 @@
 table sales
 	lineageTag: 9391cb83-1a74-478c-9753-f29c38c3e1cd
 
+	measure total_revenue = SUM(sales[discounted_price])
+		lineageTag: e4e0e3ee-8998-4411-8b77-da9ebdc46d54
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure total_units_sold = SUM(sales[sale_quantity])
+		formatString: 0
+		lineageTag: 37ab6b60-1aea-4815-aaf6-5624bb3fca21
+
+	measure discounted_revenue = SUMX(sales, sales[sale_quantity] * sales[discounted_price])
+		lineageTag: 41881200-a74b-4a8e-add9-b3c159218170
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column sale_id
 		dataType: int64
 		formatString: 0
@@ -64,6 +78,35 @@ table sales
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column price = sales[sale_quantity] * RELATED(products[product_list_price])
+		lineageTag: 96fd9fe5-0980-4cb1-9b76-864439c054ac
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column discounted_price = sales[price] * (1 - sales[sale_discount])
+		lineageTag: 2df01ea8-8ffd-4bc3-88db-83bd0b1bf442
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column bulk_order = IF(sales[sale_quantity]>3, TRUE(), FALSE())
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 79aefcc6-df89-406f-9499-886f5ca032fb
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_size = SWITCH(TRUE(), sales[discounted_price]<100, "Tiny", sales[discounted_price]<200, "Mid", "Massive")
+		lineageTag: bf5b88ca-d29b-4910-868a-cf15ebfb9c8d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
 
 	partition sales = m
 		mode: import

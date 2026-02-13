@@ -1,19 +1,38 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
-  "name": "2f0f2441e624b49242e0",
+  "name": "b493ab07140cbb47b66f",
   "position": {
-    "x": 9.6055210305030236,
+    "x": 651,
     "y": 0,
-    "z": 0,
-    "height": 720.41407728772685,
-    "width": 629.847736142984,
-    "tabOrder": 0
+    "z": 1000,
+    "height": 720,
+    "width": 629,
+    "tabOrder": 1000
   },
   "visual": {
-    "visualType": "cardVisual",
+    "visualType": "waterfallChart",
     "query": {
       "queryState": {
-        "Data": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "products"
+                    }
+                  },
+                  "Property": "product_category"
+                }
+              },
+              "queryRef": "products.product_category",
+              "nativeQueryRef": "product_category",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
           "projections": [
             {
               "field": {
@@ -50,6 +69,21 @@
         ],
         "isDefaultSort": true
       }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Revenue by Product Category'"
+                }
+              }
+            }
+          }
+        }
+      ]
     },
     "drillFilterOtherVisuals": true
   }

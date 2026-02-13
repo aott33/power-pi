@@ -1,6 +1,10 @@
 table stores
 	lineageTag: dddc42ac-6e0c-4d1c-95fc-1c6940797f68
 
+	measure oldest_store_open_date = MIN(stores[store_open_date])
+		formatString: General Date
+		lineageTag: 9b34736c-a6a6-4a93-bd6d-cf2fd0c7b236
+
 	column store_id
 		dataType: int64
 		formatString: 0

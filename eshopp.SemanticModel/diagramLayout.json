@@ -5,7 +5,7 @@
       "ordinal": 0,
       "scrollPosition": {
         "x": 0,
-        "y": 233.74705298533081
+        "y": 0
       },
       "nodes": [
         {
@@ -42,7 +42,7 @@
           "nodeIndex": "sales",
           "nodeLineageTag": "9391cb83-1a74-478c-9753-f29c38c3e1cd",
           "size": {
-            "height": 248,
+            "height": 418.65092404362724,
             "width": 234
           },
           "zIndex": 6
@@ -85,6 +85,19 @@
             "width": 234
           },
           "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 1106.396284916889,
+            "y": 492.68801814893345
+          },
+          "nodeIndex": "geographies",
+          "nodeLineageTag": "75ceb463-edd9-4f29-b266-e0d89442d3ce",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",

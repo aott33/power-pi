@@ -15,6 +15,16 @@ table sales
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	measure revenue_in_feb =
+			
+			CALCULATE(
+			    [discounted_revenue],
+			    DATESBETWEEN( dates[date], DATE( 2025,02,01 ), DATE( 2025,02,28 ) )
+			)
+		lineageTag: 22195e40-df0c-44ce-bd4a-fd526e78d837
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column sale_id
 		dataType: int64
 		formatString: 0

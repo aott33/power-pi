@@ -1,16 +1,16 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
-  "name": "1e0ef07be6ffe2c7c160",
+  "name": "761e489cde38eb376f4b",
   "position": {
     "x": 0,
-    "y": 0,
-    "z": 0,
-    "height": 719.75683890577511,
-    "width": 1280,
-    "tabOrder": 0
+    "y": 503.42583732057415,
+    "z": 5,
+    "height": 216.80382775119617,
+    "width": 640.61244019138758,
+    "tabOrder": 5
   },
   "visual": {
-    "visualType": "clusteredBarChart",
+    "visualType": "clusteredColumnChart",
     "query": {
       "queryState": {
         "Category": {
@@ -20,15 +20,16 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "customers"
+                      "Entity": "products"
                     }
                   },
-                  "Property": "customer_payment_type"
+                  "Property": "product_brand"
                 }
               },
-              "queryRef": "customers.customer_payment_type",
-              "nativeQueryRef": "customer_payment_type",
-              "active": true
+              "queryRef": "products.product_brand",
+              "nativeQueryRef": "Product Brand",
+              "active": true,
+              "displayName": "Product Brand"
             }
           ]
         },
@@ -41,17 +42,18 @@
                     "Column": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "customers"
+                          "Entity": "sales"
                         }
                       },
-                      "Property": "customer_id"
+                      "Property": "sale_id"
                     }
                   },
-                  "Function": 0
+                  "Function": 5
                 }
               },
-              "queryRef": "Sum(customers.customer_id)",
-              "nativeQueryRef": "Sum of customer_id"
+              "queryRef": "Sum(sales.sale_id)",
+              "nativeQueryRef": "Quantity of Sales",
+              "displayName": "Quantity of Sales"
             }
           ]
         }
@@ -65,13 +67,13 @@
                   "Column": {
                     "Expression": {
                       "SourceRef": {
-                        "Entity": "customers"
+                        "Entity": "sales"
                       }
                     },
-                    "Property": "customer_id"
+                    "Property": "sale_id"
                   }
                 },
-                "Function": 0
+                "Function": 5
               }
             },
             "direction": "Descending"
@@ -87,7 +89,14 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Customers by Payment Type'"
+                  "Value": "'Sales by Brand'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "16D"
                 }
               }
             },
@@ -97,11 +106,17 @@
                   "Value": "'center'"
                 }
               }
-            },
-            "fontSize": {
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
               "expr": {
                 "Literal": {
-                  "Value": "24D"
+                  "Value": "true"
                 }
               }
             }
@@ -114,58 +129,37 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "2094b781aaa7c7616059",
+        "name": "e26cf2af51b4e4859e0e",
         "field": {
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "customers"
+                "Entity": "products"
               }
             },
-            "Property": "customer_region"
+            "Property": "product_brand"
           }
         },
-        "type": "Categorical",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "c",
-              "Entity": "customers",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "In": {
-                  "Expressions": [
-                    {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Source": "c"
-                          }
-                        },
-                        "Property": "customer_region"
-                      }
-                    }
-                  ],
-                  "Values": [
-                    [
-                      {
-                        "Literal": {
-                          "Value": "'Midwest'"
-                        }
-                      }
-                    ]
-                  ]
-                }
+        "type": "Categorical"
+      },
+      {
+        "name": "37b31d761b660994e2de",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "sales"
+                  }
+                },
+                "Property": "sale_id"
               }
-            }
-          ]
+            },
+            "Function": 5
+          }
         },
-        "howCreated": "User"
+        "type": "Advanced"
       }
     ]
   }

@@ -1,14 +1,14 @@
 model Model
 	culture: en-CA
 	defaultPowerBIDataSourceVersion: powerBI_V3
-	sourceQueryCulture: en-CA
+	sourceQueryCulture: en-US
 	dataAccessOptions
 		legacyRedirects
 		returnErrorValuesAsNull
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["customers","website_sessions","sales","dates","products","stores"]
+annotation PBI_QueryOrder = ["customers","website_sessions","sales","dates","products","stores","geographies"]
 
 annotation PBI_ProTooling = ["DevMode","DaxQueryView_Desktop"]
 
@@ -23,6 +23,7 @@ ref table LocalDateTable_47dbbd6a-50b4-4c54-a2a2-acb693780986
 ref table products
 ref table stores
 ref table LocalDateTable_f96cbe96-e72e-4472-90c0-3d743f3e47b3
+ref table geographies
 
 ref cultureInfo en-CA
 

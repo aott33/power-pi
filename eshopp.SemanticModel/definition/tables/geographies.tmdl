@@ -1,0 +1,63 @@
+table geographies
+	lineageTag: 75ceb463-edd9-4f29-b266-e0d89442d3ce
+
+	column geography_country
+		dataType: string
+		lineageTag: 85adf516-016a-456c-9194-a5a05c364dbf
+		summarizeBy: none
+		sourceColumn: geography_country
+
+		annotation SummarizationSetBy = Automatic
+
+	column geography_state
+		dataType: string
+		lineageTag: 0e9c501d-b5ff-4d93-961a-134b69d77596
+		summarizeBy: none
+		sourceColumn: geography_state
+
+		annotation SummarizationSetBy = Automatic
+
+	column geography_city
+		dataType: string
+		lineageTag: 50097e1c-81aa-4408-a52b-8c3897796981
+		summarizeBy: none
+		sourceColumn: geography_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column geography_population
+		dataType: int64
+		formatString: 0
+		lineageTag: c41dce1f-8ce2-409c-b0a5-643ecd5e6aa6
+		summarizeBy: sum
+		sourceColumn: geography_population
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'geography_country Hierarchy'
+		lineageTag: a382a822-2cc9-48b9-86b4-6d345b1627ca
+
+		level geography_country
+			lineageTag: 2c0f24b5-b7d8-4449-ad72-5e2c8e9dc372
+			column: geography_country
+
+		level geography_state
+			lineageTag: 6bee315a-5131-4f29-b331-4b9c8a4d15bb
+			column: geography_state
+
+		level geography_city
+			lineageTag: c078bd8c-8d48-4910-ab19-9e4d08feba3f
+			column: geography_city
+
+	partition geographies = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\AndrewOtt\Desktop\Dev\power-bi\geographies.csv"),[Delimiter=",", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"geography_country", type text}, {"geography_state", type text}, {"geography_city", type text}, {"geography_population", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

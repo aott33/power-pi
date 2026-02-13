@@ -1,16 +1,16 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
-  "name": "c18c03961463c588c991",
+  "name": "7bf1eaab1a678268e3e7",
   "position": {
-    "x": 0,
-    "y": 370,
-    "z": 1000,
-    "height": 350,
-    "width": 1280,
-    "tabOrder": 1000
+    "x": 9.7990430622009566,
+    "y": 0,
+    "z": 0,
+    "height": 720.22966507177034,
+    "width": 1270.200956937799,
+    "tabOrder": 0
   },
   "visual": {
-    "visualType": "lineChart",
+    "visualType": "ribbonChart",
     "query": {
       "queryState": {
         "Category": {
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "website_sessions"
+                      "Entity": "dates"
                     }
                   },
-                  "Property": "session_date"
+                  "Property": "date_weekday"
                 }
               },
-              "queryRef": "website_sessions.session_date",
-              "nativeQueryRef": "session_date",
+              "queryRef": "dates.date_weekday",
+              "nativeQueryRef": "date_weekday",
               "active": true
             }
           ]
@@ -39,14 +39,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "website_sessions"
+                      "Entity": "products"
                     }
                   },
-                  "Property": "device_type"
+                  "Property": "product_category"
                 }
               },
-              "queryRef": "website_sessions.device_type",
-              "nativeQueryRef": "device_type"
+              "queryRef": "products.product_category",
+              "nativeQueryRef": "product_category"
             }
           ]
         },
@@ -54,22 +54,17 @@
           "projections": [
             {
               "field": {
-                "Aggregation": {
+                "Measure": {
                   "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "website_sessions"
-                        }
-                      },
-                      "Property": "session_pages_visited"
+                    "SourceRef": {
+                      "Entity": "sales"
                     }
                   },
-                  "Function": 0
+                  "Property": "total_revenue"
                 }
               },
-              "queryRef": "Sum(website_sessions.session_pages_visited)",
-              "nativeQueryRef": "Sum of session_pages_visited"
+              "queryRef": "sales.total_revenue",
+              "nativeQueryRef": "total_revenue"
             }
           ]
         }
@@ -78,16 +73,16 @@
         "sort": [
           {
             "field": {
-              "Column": {
+              "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "website_sessions"
+                    "Entity": "sales"
                   }
                 },
-                "Property": "session_date"
+                "Property": "total_revenue"
               }
             },
-            "direction": "Ascending"
+            "direction": "Descending"
           }
         ],
         "isDefaultSort": true
@@ -97,17 +92,10 @@
       "title": [
         {
           "properties": {
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "24D"
-                }
-              }
-            },
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Pages Visited by Date'"
+                  "Value": "'Category Rankings by Weekday'"
                 }
               }
             }

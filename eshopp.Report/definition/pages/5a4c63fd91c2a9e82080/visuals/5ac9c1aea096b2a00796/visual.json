@@ -1,16 +1,16 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
-  "name": "c18c03961463c588c991",
+  "name": "5ac9c1aea096b2a00796",
   "position": {
-    "x": 0,
-    "y": 370,
+    "x": 649.726443768997,
+    "y": 0,
     "z": 1000,
-    "height": 350,
-    "width": 1280,
+    "height": 350.15197568389061,
+    "width": 630.27355623100311,
     "tabOrder": 1000
   },
   "visual": {
-    "visualType": "lineChart",
+    "visualType": "pieChart",
     "query": {
       "queryState": {
         "Category": {
@@ -20,33 +20,15 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "website_sessions"
+                      "Entity": "stores"
                     }
                   },
-                  "Property": "session_date"
+                  "Property": "store_type"
                 }
               },
-              "queryRef": "website_sessions.session_date",
-              "nativeQueryRef": "session_date",
+              "queryRef": "stores.store_type",
+              "nativeQueryRef": "store_type",
               "active": true
-            }
-          ]
-        },
-        "Series": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "website_sessions"
-                    }
-                  },
-                  "Property": "device_type"
-                }
-              },
-              "queryRef": "website_sessions.device_type",
-              "nativeQueryRef": "device_type"
             }
           ]
         },
@@ -59,17 +41,17 @@
                     "Column": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "website_sessions"
+                          "Entity": "sales"
                         }
                       },
-                      "Property": "session_pages_visited"
+                      "Property": "sale_quantity"
                     }
                   },
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(website_sessions.session_pages_visited)",
-              "nativeQueryRef": "Sum of session_pages_visited"
+              "queryRef": "Sum(sales.sale_quantity)",
+              "nativeQueryRef": "Sum of sale_quantity"
             }
           ]
         }
@@ -78,16 +60,21 @@
         "sort": [
           {
             "field": {
-              "Column": {
+              "Aggregation": {
                 "Expression": {
-                  "SourceRef": {
-                    "Entity": "website_sessions"
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "sales"
+                      }
+                    },
+                    "Property": "sale_quantity"
                   }
                 },
-                "Property": "session_date"
+                "Function": 0
               }
             },
-            "direction": "Ascending"
+            "direction": "Descending"
           }
         ],
         "isDefaultSort": true
@@ -97,17 +84,10 @@
       "title": [
         {
           "properties": {
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "24D"
-                }
-              }
-            },
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Pages Visited by Date'"
+                  "Value": "'Sales by Store Type'"
                 }
               }
             }
